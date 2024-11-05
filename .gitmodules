@@ -1,15 +1,6 @@
-[submodule "third_party/asio"]
-	path = third_party/asio
-	url = https://github.com/chriskohlhoff/asio.git
-[submodule "third_party/endian"]
-	path = third_party/endian
-	url = https://github.com/steinwurf/endian
 [submodule "third_party/duckdb"]
 	path = third_party/duckdb
 	url = https://github.com/duckdb/duckdb.git
-[submodule "third_party/function2"]
-	path = third_party/function2
-	url = https://github.com/Naios/function2.git
-[submodule "third_party/promise-cpp"]
-	path = third_party/promise-cpp
-	url = https://github.com/xhawk18/promise-cpp
+[submodule "third_party/pgwire"]
+	path = third_party/pgwire
+	url = https://github.com/euiko/pgwire.git
