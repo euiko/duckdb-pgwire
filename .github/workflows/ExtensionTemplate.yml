@@ -3,7 +3,7 @@
 #     this workflow will be removed when scripts/bootstrap-template.py is run
 #
 name: Extension Template
-on: [push, pull_request,repository_dispatch]
+on: [push, pull_request, repository_dispatch]
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.head_ref || '' }}-${{ github.base_ref || '' }}-${{ github.ref != 'refs/heads/main' || github.sha }}
   cancel-in-progress: true
@@ -17,10 +17,10 @@ jobs:
     strategy:
       matrix:
         # Add commits/tags to build against other DuckDB versions
-        duckdb_version: [ '<submodule_version>' ]
+        duckdb_version: ["<submodule_version>"]
     env:
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-      VCPKG_TARGET_TRIPLET: 'x64-linux'
+      VCPKG_TARGET_TRIPLET: "x64-linux"
       GEN: ninja
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     defaults:
@@ -48,7 +48,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          submodules: 'true'
+          submodules: "recursive"
 
       - name: Checkout DuckDB to version
         if: ${{ matrix.duckdb_version != '<submodule_version>'}}
@@ -82,11 +82,11 @@ jobs:
     strategy:
       matrix:
         # Add commits/tags to build against other DuckDB versions
-        duckdb_version: [ '<submodule_version>']
+        duckdb_version: ["<submodule_version>"]
     env:
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-      VCPKG_TARGET_TRIPLET: 'x64-osx'
-      OSX_BUILD_ARCH: 'x86_64'
+      VCPKG_TARGET_TRIPLET: "x64-osx"
+      OSX_BUILD_ARCH: "x86_64"
       GEN: ninja
     defaults:
       run:
@@ -96,14 +96,14 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          submodules: 'true'
+          submodules: "recursive"
 
       - name: Install Ninja
         run: brew install ninja
 
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Checkout DuckDB to version
         if: ${{ matrix.duckdb_version != '<submodule_version>'}}
@@ -135,10 +135,10 @@ jobs:
     strategy:
       matrix:
         # Add commits/tags to build against other DuckDB versions
-        duckdb_version: [ '<submodule_version>' ]
+        duckdb_version: ["<submodule_version>"]
     env:
       VCPKG_TOOLCHAIN_PATH: ${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake
-      VCPKG_TARGET_TRIPLET: 'x64-windows-static-md'
+      VCPKG_TARGET_TRIPLET: "x64-windows-static-md"
     defaults:
       run:
         shell: bash
@@ -147,11 +147,11 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          submodules: 'true'
+          submodules: "recursive"
 
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Checkout DuckDB to version
         # Add commits/tags to build against other DuckDB versions
