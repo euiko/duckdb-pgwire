@@ -2,7 +2,7 @@
 #include <unordered_map>
 #define DUCKDB_EXTENSION_MAIN
 
-#include <duckpg/duckdb_pgwire_extension.hpp>
+#include <duckdb_pgwire_extension.hpp>
 
 #include <duckdb/common/exception.hpp>
 #include <duckdb/common/string_util.hpp>
