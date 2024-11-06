@@ -14,19 +14,25 @@ concurrency:
 jobs:
   duckdb-next-build:
     name: Build extension binaries
-    uses: duckdb/extension-ci-tools/.github/workflows/_extension_distribution.yml@main
+    uses: duckdb/extension-ci-tools/.github/workflows/_extension_distribution.yml@develop
     with:
+      override_repository: "https://github.com/euiko/duckdb-pgwire.git"
+      override_ref: "main"
+      override_submodules: "recursive"
       duckdb_version: main
       ci_tools_version: main
-      extension_name: quack
+      extension_name: duckdb_pgwire
 
   duckdb-stable-build:
     name: Build extension binaries
-    uses: duckdb/extension-ci-tools/.github/workflows/_extension_distribution.yml@v1.1.1
+    uses: duckdb/extension-ci-tools/.github/workflows/_extension_distribution.yml@v1.1.1-patched
     with:
+      override_repository: "https://github.com/euiko/duckdb-pgwire.git"
+      override_ref: "main"
+      override_submodules: "recursive"
       duckdb_version: v1.1.1
       ci_tools_version: v1.1.1
-      extension_name: quack
+      extension_name: duckdb_pgwire
 
   duckdb-stable-deploy:
     name: Deploy extension binaries
@@ -35,5 +41,5 @@ jobs:
     secrets: inherit
     with:
       duckdb_version: v1.1.1
-      extension_name: quack
+      extension_name: duckdb_pgwire
       deploy_latest: ${{ startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main' }}
