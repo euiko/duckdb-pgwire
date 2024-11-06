@@ -4,20 +4,15 @@
 
 # Before we load the extension, this will fail
 statement error
-SELECT duckdb_pgwire('Sam');
+SELECT quack('Sam');
 ----
-Catalog Error: Scalar Function with name duckdb_pgwire does not exist!
+Catalog Error: Scalar Function with name quack does not exist!
 
 # Require statement will ensure this test is run with this extension loaded
 require duckdb_pgwire
 
 # Confirm the extension works
 query I
-SELECT duckdb_pgwire('Sam');
+SELECT quack('Sam');
 ----
-DuckdbPgwire Sam 🐥
-
-query I
-SELECT duckdb_pgwire_openssl_version('Michael');
-----
-<REGEX>:DuckdbPgwire Michael, my linked OpenSSL version is OpenSSL.*
+Quack Sam 🐥
