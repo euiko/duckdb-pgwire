@@ -11,7 +11,7 @@ There are some potential use case that you can try with this extension :
 - Managing in-process DuckDB from outside the process.
 - Use DuckDB from the environment that are currently not supported by running on another supported host and connect via PostgreSQL protocol.
 
-**Please note that this project is very experimental and by adding PostgreSQL compatible server means that it may contradict with the original design, try with your own risk**   
+**Please note that this project is very experimental and by adding PostgreSQL compatible server means that it may contradict with the original design, try with your own risk**
 
 The PostgreSQL wire protocol is implemented in standalone component/library named `pgwire` that heavily inspired by https://github.com/returnString/convergence and https://github.com/jeroenrinzema/psql-wire.
 
@@ -45,7 +45,7 @@ Open the duckdb shell or through any duckdb embedded client and load the extensi
 # example usage with cli
 cd build/release
 # somehow still require manual loading of the extension even already built onto the duckdb shell/cli
-./duckdb -cmd 'load duckdb_pgwire'   
+./duckdb -cmd 'load duckdb_pgwire'
 
 ```
 

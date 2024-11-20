@@ -192,12 +192,12 @@ inline void PgIsInRecovery(DataChunk &args, ExpressionState &state,
     result.SetValue(0, false);
 }
 
-inline void QuackScalarFun(DataChunk &args, ExpressionState &state, Vector &result) {
+inline void DuckdbPgwireScalarFun(DataChunk &args, ExpressionState &state, Vector &result) {
     auto &name_vector = args.data[0];
     UnaryExecutor::Execute<string_t, string_t>(
 	    name_vector, result, args.size(),
 	    [&](string_t name) {
-			return StringVector::AddString(result, "Quack "+name.GetString()+" 🐥");;
+			return StringVector::AddString(result, "DuckdbPgwire "+name.GetString()+" 🐥");;
         });
 }
 
@@ -208,8 +208,8 @@ static void LoadInternal(DatabaseInstance &instance) {
     ExtensionUtil::RegisterFunction(instance,
                                     pg_is_in_recovery_scalar_function);
 
-    auto quack_scalar_function = ScalarFunction("quack", {LogicalType::VARCHAR}, LogicalType::VARCHAR, QuackScalarFun);
-    ExtensionUtil::RegisterFunction(instance, quack_scalar_function);
+    auto duckdb_pgwire_scalar_function = ScalarFunction("duckdb_pgwire", {LogicalType::VARCHAR}, LogicalType::VARCHAR, DuckdbPgwireScalarFun);
+    ExtensionUtil::RegisterFunction(instance, duckdb_pgwire_scalar_function);
 
     std::thread([&instance]() mutable { start_server(instance); }).detach();
 }

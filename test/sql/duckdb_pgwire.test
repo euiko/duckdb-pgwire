@@ -4,15 +4,15 @@
 
 # Before we load the extension, this will fail
 statement error
-SELECT quack('Sam');
+SELECT duckdb_pgwire('Sam');
 ----
-Catalog Error: Scalar Function with name quack does not exist!
+Catalog Error: Scalar Function with name duckdb_pgwire does not exist!
 
 # Require statement will ensure this test is run with this extension loaded
 require duckdb_pgwire
 
 # Confirm the extension works
 query I
-SELECT quack('Sam');
+SELECT duckdb_pgwire('Sam');
 ----
-Quack Sam 🐥
+DuckdbPgwire Sam 🐥
