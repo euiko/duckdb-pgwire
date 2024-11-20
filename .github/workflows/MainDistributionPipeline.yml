@@ -17,7 +17,6 @@ jobs:
     uses: euiko/extension-ci-tools/.github/workflows/_extension_distribution.yml@develop
     with:
       override_repository: "euiko/duckdb-pgwire"
-      override_ref: "main"
       override_submodules: "recursive"
       duckdb_version: main
       ci_tools_version: main
@@ -28,7 +27,6 @@ jobs:
     uses: euiko/extension-ci-tools/.github/workflows/_extension_distribution.yml@v1.1.1-patched
     with:
       override_repository: "euiko/duckdb-pgwire"
-      override_ref: "main"
       override_submodules: "recursive"
       duckdb_version: v1.1.1
       ci_tools_version: v1.1.1
