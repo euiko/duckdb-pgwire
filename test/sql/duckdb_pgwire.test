@@ -16,8 +16,3 @@ query I
 SELECT duckdb_pgwire('Sam');
 ----
 DuckdbPgwire Sam 🐥
-
-query I
-SELECT duckdb_pgwire_openssl_version('Michael');
-----
-<REGEX>:DuckdbPgwire Michael, my linked OpenSSL version is OpenSSL.*

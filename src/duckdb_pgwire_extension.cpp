@@ -2,7 +2,7 @@
 #include <unordered_map>
 #define DUCKDB_EXTENSION_MAIN
 
-#include <duckpg/duckdb_pgwire_extension.hpp>
+#include <duckdb_pgwire_extension.hpp>
 
 #include <duckdb/common/exception.hpp>
 #include <duckdb/common/string_util.hpp>
@@ -192,12 +192,24 @@ inline void PgIsInRecovery(DataChunk &args, ExpressionState &state,
     result.SetValue(0, false);
 }
 
+inline void DuckdbPgwireScalarFun(DataChunk &args, ExpressionState &state, Vector &result) {
+    auto &name_vector = args.data[0];
+    UnaryExecutor::Execute<string_t, string_t>(
+	    name_vector, result, args.size(),
+	    [&](string_t name) {
+			return StringVector::AddString(result, "DuckdbPgwire "+name.GetString()+" 🐥");;
+        });
+}
+
 static void LoadInternal(DatabaseInstance &instance) {
     // Register a scalar function
     auto pg_is_in_recovery_scalar_function = ScalarFunction(
         "pg_is_in_recovery", {}, LogicalType::BOOLEAN, PgIsInRecovery);
     ExtensionUtil::RegisterFunction(instance,
                                     pg_is_in_recovery_scalar_function);
+
+    auto duckdb_pgwire_scalar_function = ScalarFunction("duckdb_pgwire", {LogicalType::VARCHAR}, LogicalType::VARCHAR, DuckdbPgwireScalarFun);
+    ExtensionUtil::RegisterFunction(instance, duckdb_pgwire_scalar_function);
 
     std::thread([&instance]() mutable { start_server(instance); }).detach();
 }
@@ -209,12 +221,12 @@ std::string DuckdbPgwireExtension::Name() { return "duckdb_pgwire"; }
 
 extern "C" {
 
-DUCKDB_EXTENSION_API void quack_init(duckdb::DatabaseInstance &db) {
+DUCKDB_EXTENSION_API void duckdb_pgwire_init(duckdb::DatabaseInstance &db) {
     duckdb::DuckDB db_wrapper(db);
     db_wrapper.LoadExtension<duckdb::DuckdbPgwireExtension>();
 }
 
-DUCKDB_EXTENSION_API const char *quack_version() {
+DUCKDB_EXTENSION_API const char *duckdb_pgwire_version() {
     return duckdb::DuckDB::LibraryVersion();
 }
 }
